@@ -1,16 +1,22 @@
+body {
+  background-color: #333; /* Dark gray background */
+  color: #fff; /* White text color */
+  font-family: Arial, sans-serif; /* Specify font family */
+  padding: 20px; /* Add some padding */
+}
+
 .page {
-    display: none;
-  }
-  
-  .active {
-    display: block;
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
