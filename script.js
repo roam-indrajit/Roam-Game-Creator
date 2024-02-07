@@ -1,5 +1,6 @@
 let currentPage = 1;
 const pages = document.querySelectorAll('.page');
+let deferredPrompt;
 
 function showPage(pageNumber) {
   pages.forEach(page => page.classList.remove('active'));
@@ -19,42 +20,35 @@ function prevPage() {
   }
 }
 
-
-let deferredPrompt;
-
 window.addEventListener('beforeinstallprompt', (event) => {
-  // Prevent the default browser prompt
   event.preventDefault();
-
-  // Stash the event so it can be triggered later
   deferredPrompt = event;
-
-  // Display your own install button or custom UI
-  // For example, show a button to prompt the user to install the app
-  showInstallButton();
+  document.getElementById('installButton').style.display = 'block';
 });
 
-function showInstallButton() {
-  // Display your own install button or custom UI
-  // For example, show a button to prompt the user to install the app
-  const installButton = document.getElementById('installButton');
-  installButton.style.display = 'block';
-
-  installButton.addEventListener('click', () => {
-    // Show the browser's install prompt
+document.getElementById('installButton').addEventListener('click', () => {
+  if (deferredPrompt) {
     deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the install prompt');
-        // Optionally, you can track or log installations here
       } else {
         console.log('User dismissed the install prompt');
-        // Optionally, you can handle user dismissal here
       }
-      // Reset the deferredPrompt variable
       deferredPrompt = null;
     });
+  }
+});
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch(function(error) {
+        console.error('Service Worker registration failed:', error);
+      });
   });
 }

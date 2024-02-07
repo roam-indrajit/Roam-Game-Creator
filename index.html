@@ -10,12 +10,6 @@
 <div class="page active" id="page1">
   <h1>Page 1</h1>
   <p>This is the first page.</p>
-  <label for="dropdown">Select an option:</label>
-  <select id="dropdown">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
-  </select>
   <button class="btn" onclick="prevPage()">Previous</button>
   <button class="btn" onclick="nextPage()">Next</button>
 </div>
@@ -39,22 +33,9 @@
   <input type="file" id="fileupload"><br>
   <button class="btn" onclick="prevPage()">Previous</button>
   <button class="btn" onclick="nextPage()">Next</button>
+  <button id="installButton" class="btn" style="display: none;">Install PWA</button>
 </div>
 
 <script src="script.js"></script>
-
-<script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(function(registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(function(error) {
-            console.error('Service Worker registration failed:', error);
-          });
-      });
-    }
-    </script>
 </body>
 </html>
